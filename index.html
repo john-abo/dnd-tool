@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>D&D Tools</h1><br>
+        <link rel="stylesheet" href="style.css">
+        <title>D&D Tools</title>
+    </head>
+
+    <body>
+        <!-- This div handles the tabs of the page -->
+        <div>
+            <button class="tab" onclick="showTab('aboutTab')">About</button>
+            <button class="tab" onclick="showTab('RandDice')">Dice</button>
+            <button class="tab" onclick="showTab('Generator')">Generator</button>
+            <button class="tab" onclick="showTab('Equipment')">Equipment</button>
+            <button class="tab" onclick="showTab('SpellBook')">Spells</button>
+        </div>
+
+        <!-- This div is a basic about page, not much else to put -->
+        <div id="aboutTab" class="serviceTab">
+            <h3>About this page</h3>
+            <p>A bunch of tools for d&d things, including a character creator and dice roller</p>
+        </div>
+
+        <!-- This div is a page of dice, typically found in a set of 7 dice -->
+        <div id="RandDice" class="serviceTab" style="display:none;">
+            <h3>Random Dice</h3>
+            <script src="scripting/base.js"></script>
+            <p>Number of dice rolled</p>
+            <input type="range" id="diceSlider" min="1" max="10" value="1" oninput="document.getElementById('slideVal').innerHTML = (this.value)">
+            <label class="outlabel" id="slideVal">1</label><br>
+            <button class="button" onClick="randDice(4, 'Label_D4')">D4</button><label class="outlabel" id="Label_D4"></label><br>
+            <button class="button" onClick="randDice(6, 'Label_D6')">D6</button><label class="outlabel" id="Label_D6"></label><br>
+            <button class="button" onClick="randDice(8, 'Label_D8')">D8</button><label class="outlabel" id="Label_D8"></label><br>
+            <button class="button" onClick="randDice(10, 'Label_D10')">D10</button><label class="outlabel" id="Label_D10"></label><br>
+            <button class="button" onClick="randDice(100, 'Label_D%')">D%</button><label class="outlabel" id="Label_D%"></label><br>
+            <button class="button" onClick="randDice(12, 'Label_D12')">D12</button><label class="outlabel" id="Label_D12"></label><br>
+            <button class="button" onClick="randDice(20, 'Label_D20')">D20</button><label class="outlabel" id="Label_D20"></label><br>
+        </div>
+
+        <!-- TODO -->
+        <!-- This div is a character generator -->
+        <!-- Very much so a work in progress, this is going to be a lot of work and require a lot of script writing -->
+        <div id="Generator" class="serviceTab" style="display:none;">
+            <h3>Character Generator</h3>
+            <p>I have no intention of including much equipment just yet, I'll save that for another tab perhaps</p>
+            <script src="scripting/character.js"></script>
+            <label>Name: </label>
+            <input type="text" id="Player_Name"><br><br>
+            <label for="races">Choose a race:</label>
+            <select id="races" onchange="raceSelected()">
+                <option value="def">...</option>
+                <option value="dwarf">Dwarf</option>
+                <option value="elf">Elf</option>
+                <option value="half">Halfing</option>
+                <option value="human">Human</option>
+                <option value="dragon">Dragonborn</option>
+                <option value="gnome">Gnome</option>
+                <option value="half_E">Half-elf</option>
+                <option value="half_O">Half-orc</option>
+                <option value="tief">Tiefling</option>
+            </select><br>
+            <div id="Subchoices">
+                <div id="dwarf_Subchoice" class="user_race" style="display: none;">
+                    <h4>Dwarven Choices</h4>
+                </div>
+                <div id="elf_Subchoice" class="user_race" style="display: none;">
+                    <h4>Elven Choices</h4>
+                </div>
+                <div id="half_Subchoice" class="user_race" style="display: none;">
+                    <h4>Halfling Choices</h4>
+                </div>
+                <div id="human_Subchoice" class="user_race" style="display: none;">
+                    <h4>Human Choices</h4>
+                </div>
+                <div id="dragon_Subchoice" class="user_race" style="display: none;">
+                    <h4>Dragonborn Choices</h4>
+                </div>
+                <div id="gnome_Subchoice" class="user_race" style="display: none;">
+                    <h4>Gnome Choices</h4>
+                </div>
+                <div id="halfE_Subchoice" class="user_race" style="display: none;">
+                    <h4>Half-Elven Choices</h4>
+                </div>
+                <div id="halfO_Subchoice" class="user_race" style="display: none;">
+                    <h4>Half-Orcish Choices</h4>
+                </div>
+                <div id="tief_Subchoice" class="user_race" style="display: none;">
+                    <h4>Tiefling Choices</h4>
+                </div>
+            </div><br>
+            <label for="classes">Choose a class:</label>
+            <select id="classes" onchange="classSelected()">
+                <option value="def">...</option>
+                <option value="barb">Barbarian</option>
+                <option value="bard">Bard</option>
+                <option value="cleric">Cleric</option>
+                <option value="druid">Druid</option>
+                <option value="fighter">Fighter</option>
+                <option value="monk">Monk</option>
+                <option value="paladin">Paladin</option>
+                <option value="ranger">Ranger</option>
+                <option value="rogue">Rogue</option>
+                <option value="sorcerer">Sorcerer</option>
+                <option value="war">Warlock</option>
+                <option value="wizard">Wizard</option>
+            </select><br>
+            <div id="Subclasses">
+                <div id="barb_sub" class="user_class" style="display: none;">
+                    <h4>Barbarian Choices</h4>
+                </div>
+                <div id="bard_sub" class="user_class" style="display: none;">
+                    <h4>Bard Choices</h4>
+                </div>
+                <div id="cleric_sub" class="user_class" style="display: none;">
+                    <h4>Cleric Choices</h4>
+                </div>
+                <div id="druid_sub" class="user_class" style="display: none;">
+                    <h4>Druid Choices</h4>
+                </div>
+                <div id="fighter_sub" class="user_class" style="display: none;">
+                    <h4>Fighter Choices</h4>
+                </div>
+                <div id="monk_sub" class="user_class" style="display: none;">
+                    <h4>Monk Choices</h4>
+                </div>
+                <div id="paladin_sub" class="user_class" style="display: none;">
+                    <h4>Paladin Choices</h4>
+                </div>
+                <div id="ranger_sub" class="user_class" style="display: none;">
+                    <h4>Ranger Choices</h4>
+                </div>
+                <div id="rogue_sub" class="user_class" style="display: none;">
+                    <h4>Rogue Choices</h4>
+                </div>
+                <div id="sorcerer_sub" class="user_class" style="display: none;">
+                    <h4>Sorcerer Choices</h4>
+                </div>
+                <div id="war_sub" class="user_class" style="display: none;">
+                    <h4>Warlock Choices</h4>
+                </div>
+                <div id="wizard_sub" class="user_class" style="display: none;">
+                    <h4>Wizard Choices</h4>
+                </div>
+            </div><br>
+        </div>
+
+        <!-- For the next 2 tabs, this may require an XML file for data? include XQueries perhaps? -->
+        <!-- Going to need to think about how I plan to do this effeciently next time -->
+
+        <!-- TODO -->
+        <!-- Make new tab for equipment -->
+        <div id="Equipment" class="serviceTab" style="display:none;">
+            <h3>TODO Equipment Encyclopedia</h3>
+            <p>Tab will allow user to search for equipment with matching names and such</p>
+        </div>
+
+        <!-- TODO -->
+        <!-- Make a new tab for spell and class -->
+        <div id="SpellBook" class="serviceTab" style="display:none;">
+            <h3>TODO Spell Book</h3>
+            <p>Will function similar to Equipment, but for spells. Should include filters</p>
+        </div>
+    </body>
+</html>
